@@ -8,7 +8,9 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Badge from "@mui/material/Badge";
 
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 const font = "'Quicksand', sans-serif";
@@ -20,15 +22,6 @@ const theme = createTheme({
 });
 
 const useStyles = makeStyles((theme) => ({
-  search: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    backgroundColor: "#439dce",
-    borderRadius: 10,
-    padding: 5,
-  },
   row: {
     marginBottom: theme.spacing(5),
   },
@@ -37,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingTop: theme.spacing(3),
     background: "#ffffff",
   },
   topbarItem: {
@@ -55,6 +49,7 @@ export default function Topbar(props) {
   const classes = useStyles();
 
   const { open, setOpen } = props;
+
   return (
     <div>
       <AppBar
@@ -70,7 +65,7 @@ export default function Topbar(props) {
                 component="div"
                 sx={{
                   flexGrow: 1,
-                  color: "#ff0000",
+                  color: "#bd2626",
                 }}
               >
                 BINNI FOODS
@@ -78,15 +73,17 @@ export default function Topbar(props) {
             </ThemeProvider>
           </div>
 
-          <IconButton
-            color="primary"
-            aria-label="add to shopping cart"
-            style={{
-              color: "#ff0000",
-            }}
+          <Badge
+            color="error"
+            badgeContent={Object.keys(props.cart).length}
+            overlap="circular"
           >
-            <AddShoppingCartIcon sx={{ fontSize: 40 }} />
-          </IconButton>
+            <Link to={"/checkout"}>
+              <IconButton color="primary" aria-label="add to shopping cart">
+                <AddShoppingCartIcon sx={{ fontSize: 40 }} />
+              </IconButton>
+            </Link>
+          </Badge>
         </Toolbar>
       </AppBar>
       <Toolbar />

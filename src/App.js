@@ -5,11 +5,8 @@ import Admin from "./pages/Admin/Admin";
 import AdminLogin from "./pages/Admin/AdminLogin";
 import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { AuthContext } from "./context/AuthContext";
-import { useContext } from "react";
 
 function App() {
-  const { user } = useContext(AuthContext);
   return (
     <Router>
       <Switch>
@@ -25,7 +22,7 @@ function App() {
         <Route path="/admin">
           <Admin />
         </Route>
-        <Route exact path="/">
+        <Route path="/">
           <Home />
         </Route>
       </Switch>

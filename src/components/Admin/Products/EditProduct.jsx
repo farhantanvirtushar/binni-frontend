@@ -125,7 +125,7 @@ export default function EditProduct(props) {
   return (
     <Paper>
       <Dialog open={props.open} onClose={handleClose} fullWidth>
-        <DialogTitle>Add Product</DialogTitle>
+        <DialogTitle>Edit Product</DialogTitle>
         <DialogContent>
           <div className={classes.form}>
             <img src={props.product.image_url} width="100%" loading="lazy" />

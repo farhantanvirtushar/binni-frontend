@@ -7,14 +7,20 @@ import { makeStyles } from "@material-ui/core/styles";
 import { getUser } from "../User";
 import { Container } from "@material-ui/core";
 import Cookies from "js-cookie";
-import CategoryCard from "./CategoryCard";
+import ProductCard from "./ProductCard";
 
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
 const theme = createTheme({
   typography: {
     fontFamily: ["Irish Grover", "cursive"].join(","),
@@ -35,10 +41,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FoodMenu() {
+export default function AllProducts(props) {
   const classes = useStyles();
 
-  const [categories, setCategories] = useState([]);
+  let { id } = useParams();
+  const [products, setProducts] = useState([]);
+  const [category, setCategory] = useState({});
 
   var csrftoken = Cookies.get("csrftoken");
   let config = {
@@ -51,12 +59,24 @@ export default function FoodMenu() {
 
   const user = getUser();
 
-  const getCategories = async () => {
+  const getCategory = async () => {
     try {
-      const res = await axios.get("/api/categories/", config);
+      const res = await axios.get("/api/categories/" + id, config);
 
       if (res) {
-        setCategories(res.data);
+        setCategory(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getProducts = async () => {
+    try {
+      const res = await axios.get("/api/categories/" + id + "/all", config);
+
+      if (res) {
+        setProducts(res.data);
       }
     } catch (error) {
       console.log(error);
@@ -64,15 +84,11 @@ export default function FoodMenu() {
   };
 
   useEffect(() => {
-    getCategories();
+    getCategory();
+    getProducts();
   }, []);
   return (
     <div className={classes.root}>
-      <img
-        src="https://scontent.fdac22-1.fna.fbcdn.net/v/t1.6435-9/56517146_921280151596718_4611876032075530240_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=e3f864&_nc_ohc=O7IrPml-0s0AX9Nu82Q&_nc_ht=scontent.fdac22-1.fna&oh=d1290368ee57a34300bd0b813d06a2c1&oe=61B229D0"
-        width="100%"
-        loading="lazy"
-      />
       <Container component="main" maxWidth="md">
         <div className={classes.paper}>
           <ThemeProvider theme={theme}>
@@ -85,13 +101,18 @@ export default function FoodMenu() {
                 color: "#000000",
               }}
             >
-              MENU
+              {category.name}
             </Typography>
           </ThemeProvider>
-          <Grid container spacing={1} alignItems="center">
-            {categories.map((row) => (
+          <Grid container spacing={1}>
+            {products.map((row) => (
               <Grid item xs={12} md={4}>
-                <CategoryCard id={row.category_id} category={row} />
+                <ProductCard
+                  id={row.product_id}
+                  product={row}
+                  cart={props.cart}
+                  setCart={props.setCart}
+                />
               </Grid>
             ))}
           </Grid>

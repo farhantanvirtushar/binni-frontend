@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 
 import IconButton from "@mui/material/IconButton";
 
-import EditIcon from "@mui/icons-material/Edit";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,7 +18,7 @@ import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { getAdmin } from "../../../User";
-import EditCategory from "./EditCategory";
+import OrderDetails from "./OrderDetails";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,13 +37,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CategoryList(props) {
+export default function OrderList(props) {
   const classes = useStyles();
 
-  var categories = props.categories;
+  var orders = props.orders;
 
   const [open, setOpen] = useState(false);
-  const [categoryToEdit, setCategoryToEdit] = useState({});
+  const [orderToEdit, setOrderToEdit] = useState({});
 
   let admin = getAdmin();
 
@@ -80,32 +80,32 @@ export default function CategoryList(props) {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="left">Cover Image</TableCell>
-              <TableCell align="left">Category Name</TableCell>
+              <TableCell align="center">Tracking Number</TableCell>
+              <TableCell align="left">Name</TableCell>
+              <TableCell align="left">Contact No</TableCell>
+              <TableCell align="left">Shipping Address</TableCell>
               <TableCell align="center">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {categories.map((row) => (
-              <TableRow key={row.category_id}>
+            {orders.map((row) => (
+              <TableRow key={row.order_id}>
+                <TableCell align="center">{row.order_id}</TableCell>
                 <TableCell align="left">
-                  <img
-                    src={row.category_image_url}
-                    height="50"
-                    loading="lazy"
-                  />
+                  {row.first_name + " " + row.last_name}
                 </TableCell>
-                <TableCell align="left">{row.name}</TableCell>
+                <TableCell align="left">{row.contact_no}</TableCell>
+                <TableCell align="left">{row.shipping_address}</TableCell>
                 <TableCell align="center">
                   <IconButton
                     color="primary"
                     aria-label="edit"
                     onClick={(event) => {
-                      setCategoryToEdit(row);
+                      setOrderToEdit(row);
                       setOpen(true);
                     }}
                   >
-                    <EditIcon />
+                    <OpenInNewIcon />
                   </IconButton>
                   <IconButton
                     style={{
@@ -124,12 +124,7 @@ export default function CategoryList(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <EditCategory
-        category={categoryToEdit}
-        open={open}
-        setOpen={setOpen}
-        setCategories={props.setCategories}
-      />
+      <OrderDetails open={open} setOpen={setOpen} order={orderToEdit} />
     </Paper>
   );
 }
