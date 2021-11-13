@@ -54,5 +54,9 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8000"
+  "engines": {
+    "node": "12.x",
+    "npm": "7.x"
+  },
+  "proxy": "https://binni-backend.herokuapp.com/"
 }
