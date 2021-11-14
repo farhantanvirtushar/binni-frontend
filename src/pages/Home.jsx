@@ -1,16 +1,9 @@
+/* eslint-disable */
 import React from "react";
 import { useHistory } from "react-router-dom";
 
 import { Box, Container, Grid, Menu } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { Redirect } from "react-router-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
-import { AppBar } from "@material-ui/core";
-
-import Typography from "@material-ui/core/Typography";
 
 import { getUser, updateUser } from "../User";
 import { useState } from "react";

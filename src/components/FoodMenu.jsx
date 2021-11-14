@@ -1,6 +1,6 @@
+/* eslint-disable */
 import axios from "axios";
 import React from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -9,11 +9,13 @@ import { Container } from "@material-ui/core";
 import Cookies from "js-cookie";
 import CategoryCard from "./CategoryCard";
 
-import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+
+var pjson = require("../../package.json");
+const serverAddress = pjson.proxy;
 
 const theme = createTheme({
   typography: {
@@ -35,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/* eslint-disable */
 export default function FoodMenu() {
   const classes = useStyles();
 
@@ -53,7 +56,10 @@ export default function FoodMenu() {
 
   const getCategories = async () => {
     try {
-      const res = await axios.get("/api/categories/", config);
+      const res = await axios.get(
+        process.env.REACT_APP_BACK_END_URL + "/api/categories/",
+        config
+      );
 
       if (res) {
         setCategories(res.data);
@@ -90,8 +96,12 @@ export default function FoodMenu() {
           </ThemeProvider>
           <Grid container spacing={1} alignItems="center">
             {categories.map((row) => (
-              <Grid item xs={12} md={4}>
-                <CategoryCard id={row.category_id} category={row} />
+              <Grid item key={row.category_id} xs={12} md={4}>
+                <CategoryCard
+                  key={row.category_id}
+                  id={row.category_id}
+                  category={row}
+                />
               </Grid>
             ))}
           </Grid>

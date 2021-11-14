@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
@@ -73,7 +74,10 @@ export default function Orders() {
 
   const getOrders = async () => {
     try {
-      const res = await axios.get("/api/orders/", config);
+      const res = await axios.get(
+        process.env.REACT_APP_BACK_END_URL + "/api/orders/",
+        config
+      );
 
       if (res) {
         setOrders(res.data);

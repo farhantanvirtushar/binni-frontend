@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -64,7 +65,10 @@ export default function OrderList(props) {
   const handleDelete = async (row) => {
     try {
       const res = await axios.post(
-        "/api/categories/" + row.category_id + "/delete",
+        process.env.REACT_APP_BACK_END_URL +
+          "/api/categories/" +
+          row.category_id +
+          "/delete",
         config
       );
 

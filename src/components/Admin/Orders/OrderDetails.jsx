@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -70,7 +71,10 @@ export default function OrderDetails(props) {
   const getOrderedItems = async () => {
     try {
       const res = await axios.get(
-        "/api/orders/" + props.order.order_id + "/details",
+        process.env.REACT_APP_BACK_END_URL +
+          "/api/orders/" +
+          props.order.order_id +
+          "/details",
         config
       );
 

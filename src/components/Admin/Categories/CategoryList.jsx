@@ -1,19 +1,18 @@
-import React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-
-import IconButton from "@mui/material/IconButton";
-
+/* eslint-disable */
+import { React, useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  IconButton,
+} from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-
-import { makeStyles } from "@material-ui/core/styles";
-import { useState } from "react";
 
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -64,7 +63,10 @@ export default function CategoryList(props) {
   const handleDelete = async (row) => {
     try {
       const res = await axios.post(
-        "/api/categories/" + row.category_id + "/delete",
+        process.env.REACT_APP_BACK_END_URL +
+          "/api/categories/" +
+          row.category_id +
+          "/delete",
         config
       );
 

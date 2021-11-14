@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -66,7 +67,10 @@ export default function ProductList(props) {
       };
 
       const res = await axios.post(
-        "/api/products/" + row.product_id + "/delete",
+        process.env.REACT_APP_BACK_END_URL +
+          "/api/products/" +
+          row.product_id +
+          "/delete",
         data,
         config
       );

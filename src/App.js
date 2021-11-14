@@ -1,9 +1,10 @@
+/* eslint-disable */
 import Home from "./pages/Home";
 import LogIn from "./pages/Login";
 import Register from "./pages/Register";
 import Admin from "./pages/Admin/Admin";
 import AdminLogin from "./pages/Admin/AdminLogin";
-import "bootstrap/dist/css/bootstrap.css";
+import dotenv from "dotenv";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -83,7 +84,9 @@ export default function EditCategory(props) {
       data.append("categoryName", categoryName);
 
       const res = await axios.put(
-        "/api/categories/" + props.category.category_id,
+        process.env.REACT_APP_BACK_END_URL +
+          "/api/categories/" +
+          props.category.category_id,
         data,
         config
       );

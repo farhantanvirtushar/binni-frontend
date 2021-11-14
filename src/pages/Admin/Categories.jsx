@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
@@ -72,7 +73,10 @@ export default function Categories() {
 
   const getCategories = async () => {
     try {
-      const res = await axios.get("/api/categories/", config);
+      const res = await axios.get(
+        process.env.REACT_APP_BACK_END_URL + "/api/categories/",
+        config
+      );
 
       if (res) {
         setCategories(res.data);
@@ -96,7 +100,11 @@ export default function Categories() {
       let data = {
         categoryName: categoryName,
       };
-      const res = await axios.post("/api/categories/new", data, config);
+      const res = await axios.post(
+        process.env.REACT_APP_BACK_END_URL + "/api/categories/new",
+        data,
+        config
+      );
 
       if (res) {
         setCategories(res.data);

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import { useContext, useState } from "react";
 
@@ -10,7 +11,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -86,7 +87,11 @@ export default function AdminLogin() {
         username: username,
         password: password,
       };
-      const res = await axios.post("/api/auth/admin/login", userData, config);
+      const res = await axios.post(
+        process.env.REACT_APP_BACK_END_URL + "/api/auth/admin/login",
+        userData,
+        config
+      );
 
       let data = res.data;
       sessionStorage.setItem("adminLoggedIn", "true");

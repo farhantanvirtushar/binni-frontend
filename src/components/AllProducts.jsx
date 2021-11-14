@@ -1,19 +1,16 @@
-import axios from "axios";
-import React from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { useEffect, useState } from "react";
+/* eslint-disable */
+import { React, useEffect, useState } from "react";
+import { Container, Grid, Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 import { getUser } from "../User";
-import { Container } from "@material-ui/core";
 import Cookies from "js-cookie";
 import ProductCard from "./ProductCard";
 
-import Stack from "@mui/material/Stack";
-import Grid from "@mui/material/Grid";
+import axios from "axios";
 
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
 import {
   BrowserRouter as Router,
   Switch,
@@ -21,6 +18,7 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
+
 const theme = createTheme({
   typography: {
     fontFamily: ["Irish Grover", "cursive"].join(","),
@@ -61,7 +59,10 @@ export default function AllProducts(props) {
 
   const getCategory = async () => {
     try {
-      const res = await axios.get("/api/categories/" + id, config);
+      const res = await axios.get(
+        process.env.REACT_APP_BACK_END_URL + "/api/categories/" + id,
+        config
+      );
 
       if (res) {
         setCategory(res.data);
@@ -73,7 +74,10 @@ export default function AllProducts(props) {
 
   const getProducts = async () => {
     try {
-      const res = await axios.get("/api/categories/" + id + "/all", config);
+      const res = await axios.get(
+        process.env.REACT_APP_BACK_END_URL + "/api/categories/" + id + "/all",
+        config
+      );
 
       if (res) {
         setProducts(res.data);

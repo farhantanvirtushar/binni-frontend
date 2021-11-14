@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import AppBar from "@mui/material/AppBar";
 import { Container, Grid } from "@material-ui/core";
@@ -145,7 +146,8 @@ export default function Admin() {
     try {
       var offset = (pageNo - 1) * limit;
       const res = await axios.get(
-        "/api/users?search=%" +
+        process.env.REACT_APP_BACK_END_URL +
+          "/api/users?search=%" +
           search +
           "%&limit=" +
           limit +

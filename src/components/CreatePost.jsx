@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import { useState } from "react";
 
@@ -14,11 +15,11 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import CameraAltIcon from "@material-ui/icons/CameraAlt";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import axios from "axios";
 import { useHistory } from "react-router";
 import Cookies from "js-cookie";
@@ -85,7 +86,11 @@ export default function CreatePost() {
     formdata.append("description", description);
 
     try {
-      const res = await axios.post("/api/v1/pdf/zip_upload/", formdata, config);
+      const res = await axios.post(
+        process.env.REACT_APP_BACK_END_URL + "/api/v1/pdf/zip_upload/",
+        formdata,
+        config
+      );
       window.location.reload();
     } catch (error) {}
   };

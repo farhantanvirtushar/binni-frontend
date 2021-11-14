@@ -4,14 +4,9 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
+
 import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
-
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 
 import { useEffect } from "react";
 
@@ -23,6 +18,7 @@ import { getAdmin } from "../../../User";
 
 import { Typography } from "@mui/material";
 
+/* eslint-disable */
 const useStyles = makeStyles((theme) => ({
   form: {
     marginTop: theme.spacing(1),
@@ -81,7 +77,11 @@ export default function CreateCategory(props) {
       data.append("image", selectedFile);
       data.append("categoryName", categoryName);
 
-      const res = await axios.post("/api/categories/new", data, config);
+      const res = await axios.post(
+        process.env.REACT_APP_BACK_END_URL + "/api/categories/new",
+        data,
+        config
+      );
 
       if (res) {
         props.setCategories(res.data);

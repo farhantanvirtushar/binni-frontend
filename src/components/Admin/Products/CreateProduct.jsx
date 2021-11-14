@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -99,7 +100,10 @@ export default function CreateProduct(props) {
       console.log(data);
       console.log("====================================");
       const res = await axios.post(
-        "/api/categories/" + props.categoryID + "/new",
+        process.env.REACT_APP_BACK_END_URL +
+          "/api/categories/" +
+          props.categoryID +
+          "/new",
         data,
         config
       );
