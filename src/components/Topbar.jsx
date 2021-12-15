@@ -62,14 +62,15 @@ export default function Topbar(props) {
           <div className={classes.topbarItem}>
             <ThemeProvider theme={theme}>
               <Typography
-                variant="h3"
+                variant="h4"
                 component="div"
                 sx={{
                   flexGrow: 1,
                   color: "#bd2626",
+                  fontSize: 30,
                 }}
               >
-                BINNI FOODS
+                BINNI RESTURANT & CATERING SERVICE
               </Typography>
             </ThemeProvider>
           </div>

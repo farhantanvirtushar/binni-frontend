@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EditCategory(props) {
+export default function EditDepartment(props) {
   const classes = useStyles();
 
   let admin = getAdmin();
@@ -65,8 +65,7 @@ export default function EditCategory(props) {
     },
   };
 
-  const [categoryName, setCategoryName] = useState("");
-  const [departmentID, setDepartmentID] = useState("");
+  const [departmentName, setdepartmentName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleClose = () => {
@@ -76,30 +75,24 @@ export default function EditCategory(props) {
   const onFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
-
-  const handleDepartmentChange = async (event) => {
-    setDepartmentID(event.target.value);
-  };
-
   const handleSubmit = async () => {
     props.setOpen(false);
     try {
       const data = new FormData();
       data.append("image", selectedFile);
-      data.append("image_url", props.category.category_image_url);
-      data.append("categoryName", categoryName);
-      data.append("departmentID", departmentID);
+      data.append("image_url", props.department.department_image_url);
+      data.append("departmentName", departmentName);
 
       const res = await axios.put(
         process.env.REACT_APP_BACK_END_URL +
-          "/api/categories/" +
-          props.category.category_id,
+          "/api/departments/" +
+          props.department.department_id,
         data,
         config
       );
 
       if (res) {
-        props.setCategories(res.data);
+        props.setdepartments(res.data);
       }
     } catch (error) {
       console.log(error);
@@ -107,19 +100,18 @@ export default function EditCategory(props) {
   };
 
   useEffect(() => {
-    setCategoryName(props.category.name);
-    setDepartmentID(props.category.department_id);
+    setdepartmentName(props.department.name);
     setSelectedFile(null);
   }, [props.open]);
 
   return (
     <Paper>
       <Dialog open={props.open} onClose={handleClose} fullWidth>
-        <DialogTitle>Edit Category</DialogTitle>
+        <DialogTitle>Edit department</DialogTitle>
         <DialogContent>
           <div className={classes.form}>
             <img
-              src={props.category.category_image_url}
+              src={props.department.department_image_url}
               width="100%"
               loading="lazy"
             />
@@ -135,33 +127,15 @@ export default function EditCategory(props) {
               />
             </div>
             <div className={classes.row}>
-              <FormControl variant="filled" sx={{ m: 1, minWidth: 200 }}>
-                <InputLabel id="demo-simple-select-label">
-                  Select Department
-                </InputLabel>
-                <Select
-                  labelId="department-select-label"
-                  id="department-select"
-                  value={departmentID}
-                  label="Select Department"
-                  onChange={handleDepartmentChange}
-                >
-                  {props.departments.map((row) => (
-                    <MenuItem value={row.department_id}>{row.name}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-            <div className={classes.row}>
               <TextField
                 autoFocus
                 margin="dense"
                 id="outlined-basic"
-                label="Category Name"
+                label="department Name"
                 variant="outlined"
-                value={categoryName}
+                value={departmentName}
                 onChange={(event) => {
-                  setCategoryName(event.target.value);
+                  setdepartmentName(event.target.value);
                 }}
               />
             </div>

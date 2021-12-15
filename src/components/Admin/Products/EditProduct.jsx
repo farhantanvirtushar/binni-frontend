@@ -52,6 +52,7 @@ export default function EditProduct(props) {
 
   const [title, setTitle] = useState(props.product.title);
   const [description, setDescription] = useState(props.product.description);
+  const [code, setCode] = useState(props.product.code);
   const [stock, setStock] = useState(props.product.stock);
   const [buyingPrice, setBuyingPrice] = useState(props.product.buying_price);
   const [price, setPrice] = useState(props.product.price);
@@ -93,6 +94,7 @@ export default function EditProduct(props) {
       data.append("image_url", props.product.image_url);
       data.append("title", title);
       data.append("description", description);
+      data.append("code", code);
       data.append("stock", stock);
       data.append("price", price);
       data.append("buying_price", buyingPrice);
@@ -118,6 +120,7 @@ export default function EditProduct(props) {
   useEffect(() => {
     setTitle(props.product.title);
     setDescription(props.product.description);
+    setCode(props.product.code);
     setStock(props.product.stock);
     setBuyingPrice(props.product.buying_price);
     setPrice(props.product.price);
@@ -171,6 +174,17 @@ export default function EditProduct(props) {
               }}
             />
 
+            <TextField
+              autoFocus
+              margin="dense"
+              id="code"
+              label="Code"
+              variant="outlined"
+              value={code}
+              onChange={(event) => {
+                setCode(event.target.value);
+              }}
+            />
             <TextField
               autoFocus
               type="number"

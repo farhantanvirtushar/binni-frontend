@@ -7,15 +7,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import { getUser } from "../User";
 import { Container } from "@material-ui/core";
 import Cookies from "js-cookie";
-import CategoryCard from "./CategoryCard";
+import DepartmentCard from "../components/DepartmentCard";
 
 import Grid from "@mui/material/Grid";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-
-var pjson = require("../../package.json");
-const serverAddress = pjson.proxy;
 
 const theme = createTheme({
   typography: {
@@ -38,10 +35,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* eslint-disable */
-export default function FoodMenu(props) {
+export default function Department() {
   const classes = useStyles();
 
-  const [categories, setCategories] = useState([]);
+  const [departments, setDepartments] = useState([]);
 
   var csrftoken = Cookies.get("csrftoken");
   let config = {
@@ -54,15 +51,15 @@ export default function FoodMenu(props) {
 
   const user = getUser();
 
-  const getCategories = async () => {
+  const getDepartments = async () => {
     try {
       const res = await axios.get(
-        process.env.REACT_APP_BACK_END_URL + "/api/categories/",
+        process.env.REACT_APP_BACK_END_URL + "/api/departments/",
         config
       );
 
       if (res) {
-        setCategories(res.data);
+        setDepartments(res.data);
       }
     } catch (error) {
       console.log(error);
@@ -70,7 +67,7 @@ export default function FoodMenu(props) {
   };
 
   useEffect(() => {
-    getCategories();
+    getDepartments();
   }, []);
   return (
     <div className={classes.root}>
@@ -79,7 +76,7 @@ export default function FoodMenu(props) {
         width="100%"
         loading="lazy"
       />
-      <Container component="main" maxWidth="md">
+      <Container component="main" maxWidth="lg">
         <div className={classes.paper}>
           <ThemeProvider theme={theme}>
             <Typography
@@ -94,13 +91,13 @@ export default function FoodMenu(props) {
               MENU
             </Typography>
           </ThemeProvider>
-          <Grid container spacing={1} alignItems="center">
-            {categories.map((row) => (
+          <Grid container spacing={3} alignItems="center">
+            {departments.map((row) => (
               <Grid item key={row.category_id} xs={12} md={4}>
-                <CategoryCard
-                  key={row.category_id}
-                  id={row.category_id}
-                  category={row}
+                <DepartmentCard
+                  key={row.department_id}
+                  id={row.department_id}
+                  department={row}
                 />
               </Grid>
             ))}

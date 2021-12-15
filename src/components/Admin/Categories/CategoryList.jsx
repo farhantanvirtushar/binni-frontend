@@ -40,6 +40,7 @@ export default function CategoryList(props) {
   const classes = useStyles();
 
   var categories = props.categories;
+  var departments = props.departments;
 
   const [open, setOpen] = useState(false);
   const [categoryToEdit, setCategoryToEdit] = useState({});
@@ -62,20 +63,29 @@ export default function CategoryList(props) {
 
   const handleDelete = async (row) => {
     try {
-      const res = await axios.post(
+      const res = await axios.delete(
         process.env.REACT_APP_BACK_END_URL +
           "/api/categories/" +
-          row.category_id +
-          "/delete",
+          row.category_id,
         config
       );
 
       if (res) {
+        props.setCategories(res.data);
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  const getDeptName = (dept_id) => {
+    for (var i = 0; i < departments.length; i++) {
+      if (departments[i].department_id == dept_id) {
+        return departments[i].name;
+      }
+    }
+  };
+
   return (
     <Paper className={classes.root}>
       <TableContainer component={Paper}>
@@ -84,6 +94,7 @@ export default function CategoryList(props) {
             <TableRow>
               <TableCell align="left">Cover Image</TableCell>
               <TableCell align="left">Category Name</TableCell>
+              <TableCell align="left">Department</TableCell>
               <TableCell align="center">Action</TableCell>
             </TableRow>
           </TableHead>
@@ -98,6 +109,9 @@ export default function CategoryList(props) {
                   />
                 </TableCell>
                 <TableCell align="left">{row.name}</TableCell>
+                <TableCell align="left">
+                  {getDeptName(row.department_id)}
+                </TableCell>
                 <TableCell align="center">
                   <IconButton
                     color="primary"
@@ -115,7 +129,7 @@ export default function CategoryList(props) {
                     }}
                     aria-label="add to shopping cart"
                     onClick={(event) => {
-                      // handleDelete(row);
+                      handleDelete(row);
                     }}
                   >
                     <DeleteIcon />
@@ -127,6 +141,7 @@ export default function CategoryList(props) {
         </Table>
       </TableContainer>
       <EditCategory
+        departments={props.departments}
         category={categoryToEdit}
         open={open}
         setOpen={setOpen}

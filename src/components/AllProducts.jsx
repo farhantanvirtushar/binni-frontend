@@ -93,7 +93,7 @@ export default function AllProducts(props) {
   }, []);
   return (
     <div className={classes.root}>
-      <Container component="main" maxWidth="md">
+      <Container component="main" maxWidth="lg">
         <div className={classes.paper}>
           <ThemeProvider theme={theme}>
             <Typography
@@ -108,7 +108,13 @@ export default function AllProducts(props) {
               {category.name}
             </Typography>
           </ThemeProvider>
-          <Grid container spacing={1}>
+          <Grid
+            container
+            spacing={1}
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+          >
             {products.map((row) => (
               <Grid item xs={12} md={4}>
                 <ProductCard

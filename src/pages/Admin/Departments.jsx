@@ -21,8 +21,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import CreateCategory from "../../components/Admin/Categories/CreateCategory";
-import CategoryList from "../../components/Admin/Categories/CategoryList";
+import CreateDepartment from "../../components/Admin/Departments/CreateDepartment";
+import DepartmentList from "../../components/Admin/Departments/DepartmentList";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
@@ -44,10 +44,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Categories() {
-  const [categories, setCategories] = useState([]);
+export default function Departemnts() {
   const [departments, setDepartments] = useState([]);
-  const [categoryName, setCategoryName] = useState("");
+  const [departmentName, setDepartmentName] = useState("");
   const [open, setOpen] = React.useState(false);
 
   let admin = getAdmin();
@@ -70,21 +69,6 @@ export default function Categories() {
       "Content-Type": "application/json",
       Authorization: "Bearer " + admin.token,
     },
-  };
-
-  const getCategories = async () => {
-    try {
-      const res = await axios.get(
-        process.env.REACT_APP_BACK_END_URL + "/api/categories/",
-        config
-      );
-
-      if (res) {
-        setCategories(res.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const getDepartments = async () => {
@@ -114,16 +98,16 @@ export default function Categories() {
     setOpen(false);
     try {
       let data = {
-        categoryName: categoryName,
+        DepartmentName: DepartmentName,
       };
       const res = await axios.post(
-        process.env.REACT_APP_BACK_END_URL + "/api/categories/new",
+        process.env.REACT_APP_BACK_END_URL + "/api/departments/new",
         data,
         config
       );
 
       if (res) {
-        setCategories(res.data);
+        setDepartments(res.data);
       }
     } catch (error) {
       console.log(error);
@@ -132,29 +116,26 @@ export default function Categories() {
   const classes = useStyles();
 
   useEffect(() => {
-    getCategories();
     getDepartments();
   }, []);
   return (
     <div className={classes.paper}>
       <div className={classes.row}>
         <Typography variant="h4" component="div" gutterBottom>
-          Categories
+          Departments
         </Typography>
         <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
           <AddIcon />
         </Fab>
       </div>
-      <CreateCategory
-        departments={departments}
-        setCategories={setCategories}
+      <CreateDepartment
+        setDepartments={setDepartments}
         setOpen={setOpen}
         open={open}
       />
-      <CategoryList
+      <DepartmentList
         departments={departments}
-        categories={categories}
-        setCategories={setCategories}
+        setDepartments={setDepartments}
       />
     </div>
   );

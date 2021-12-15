@@ -32,6 +32,7 @@ import Products from "./Products";
 import Orders from "./Orders";
 import Topbar from "../../components/Admin/Topbar";
 import Sidebar from "../../components/Admin/Sidebar";
+import Departemnts from "./Departments";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -185,6 +186,9 @@ export default function Admin() {
             <Switch>
               <Route exact path="/admin/dashboard">
                 <Dashboard />
+              </Route>
+              <Route exact path="/admin/departments">
+                <Departemnts />
               </Route>
               <Route exact path="/admin/categories">
                 <Categories />

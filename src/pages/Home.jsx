@@ -14,9 +14,10 @@ import Cookies from "js-cookie";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Topbar from "../components/Topbar";
-import FoodMenu from "../components/FoodMenu";
+import Department from "./Department";
 import AllProducts from "../components/AllProducts";
 import CheckOut from "./CheckOut";
+import DepartmentCategories from "./DepartmentCategories";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
@@ -81,7 +82,10 @@ export default function Home() {
           <Box component="main" sx={{ p: 3 }}>
             <Switch>
               <Route exact path="/">
-                <FoodMenu />
+                <Department />
+              </Route>
+              <Route exact path="/department/:id">
+                <DepartmentCategories cart={cart} setCart={setCart} />
               </Route>
               <Route exact path="/menu/:id">
                 <AllProducts cart={cart} setCart={setCart} />

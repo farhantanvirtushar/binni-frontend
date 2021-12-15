@@ -8,6 +8,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
 
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
 import { useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -61,6 +66,7 @@ export default function CreateCategory(props) {
   };
 
   const [categoryName, setCategoryName] = useState("");
+  const [departmentID, setDepartmentID] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleClose = () => {
@@ -70,12 +76,18 @@ export default function CreateCategory(props) {
   const onFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
+
+  const handleDepartmentChange = async (event) => {
+    setDepartmentID(event.target.value);
+  };
+
   const handleSubmit = async () => {
     props.setOpen(false);
     try {
       const data = new FormData();
       data.append("image", selectedFile);
       data.append("categoryName", categoryName);
+      data.append("departmentID", departmentID);
 
       const res = await axios.post(
         process.env.REACT_APP_BACK_END_URL + "/api/categories/new",
@@ -109,6 +121,24 @@ export default function CreateCategory(props) {
                 name="imagefile"
                 onChange={onFileChange}
               />
+            </div>
+            <div className={classes.row}>
+              <FormControl variant="filled" sx={{ m: 1, minWidth: 200 }}>
+                <InputLabel id="demo-simple-select-label">
+                  Select Department
+                </InputLabel>
+                <Select
+                  labelId="department-select-label"
+                  id="department-select"
+                  value={departmentID}
+                  label="Select Department"
+                  onChange={handleDepartmentChange}
+                >
+                  {props.departments.map((row) => (
+                    <MenuItem value={row.department_id}>{row.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </div>
             <div className={classes.row}>
               <TextField

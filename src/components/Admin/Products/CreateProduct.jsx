@@ -67,6 +67,7 @@ export default function CreateProduct(props) {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [code, setCode] = useState("");
   const [stock, setStock] = useState(0);
   const [buyingPrice, setBuyingPrice] = useState(0);
   const [price, setPrice] = useState(0);
@@ -91,6 +92,7 @@ export default function CreateProduct(props) {
       data.append("image", selectedFile);
       data.append("title", title);
       data.append("description", description);
+      data.append("code", code);
       data.append("stock", stock);
       data.append("price", price);
       data.append("buying_price", buyingPrice);
@@ -156,6 +158,18 @@ export default function CreateProduct(props) {
               variant="outlined"
               onChange={(event) => {
                 setDescription(event.target.value);
+              }}
+            />
+
+            <TextField
+              autoFocus
+              margin="dense"
+              id="code"
+              label="Code"
+              variant="outlined"
+              value={code}
+              onChange={(event) => {
+                setCode(event.target.value);
               }}
             />
 

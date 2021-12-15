@@ -14,6 +14,7 @@ import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import CategoryIcon from "@mui/icons-material/Category";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
+import AppsIcon from "@mui/icons-material/Apps";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
@@ -49,10 +50,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const items = ["Dashboard", "Categories", "Products", "Orders"];
-const itemUrl = ["/dashboard", "/categories", "/products", "/orders"];
+const items = ["Dashboard", "Departments", "Categories", "Products", "Orders"];
+const itemUrl = [
+  "/dashboard",
+  "/departments",
+  "/categories",
+  "/products",
+  "/orders",
+];
 const itemIcons = [
   <QueryStatsIcon />,
+  <AppsIcon />,
   <CategoryIcon />,
   <FastfoodIcon />,
   <LocalMallIcon />,

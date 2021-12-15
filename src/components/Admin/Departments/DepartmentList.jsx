@@ -1,25 +1,23 @@
 /* eslint-disable */
-import React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
-
+import { React, useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  IconButton,
+} from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-
-import EditProduct from "./EditProduct";
-
-import { makeStyles } from "@material-ui/core/styles";
-import { useState } from "react";
 
 import axios from "axios";
 import Cookies from "js-cookie";
 import { getAdmin } from "../../../User";
+import EditDepartment from "./EditDepartment";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,11 +36,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductList(props) {
+export default function DepartmentList(props) {
   const classes = useStyles();
 
+  var departments = props.departments;
+
   const [open, setOpen] = useState(false);
-  const [productToEdit, setProductToEdit] = useState({});
+  const [departmentToEdit, setDepartmentToEdit] = useState({});
 
   let admin = getAdmin();
 
@@ -62,62 +62,48 @@ export default function ProductList(props) {
 
   const handleDelete = async (row) => {
     try {
-      const data = {
-        categoryId: row.category_id,
-      };
-
       const res = await axios.post(
         process.env.REACT_APP_BACK_END_URL +
-          "/api/products/" +
-          row.product_id +
+          "/api/departments/" +
+          row.department_id +
           "/delete",
-        data,
         config
       );
 
       if (res) {
-        props.setProducts(res.data);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  var products = props.products;
   return (
     <Paper className={classes.root}>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="left">Photo</TableCell>
-              <TableCell align="left">Code</TableCell>
-              <TableCell align="left">Title</TableCell>
-              <TableCell align="center">Stock</TableCell>
-              <TableCell align="center">Buying Price</TableCell>
-              <TableCell align="center">Price</TableCell>
-              <TableCell align="center">Unit</TableCell>
+              <TableCell align="left">Cover Image</TableCell>
+              <TableCell align="left">Department Name</TableCell>
               <TableCell align="center">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((row) => (
-              <TableRow key={row.product_id}>
+            {departments.map((row) => (
+              <TableRow key={row.department_id}>
                 <TableCell align="left">
-                  <img src={row.image_url} height="50" loading="lazy" />
+                  <img
+                    src={row.department_image_url}
+                    height="50"
+                    loading="lazy"
+                  />
                 </TableCell>
-                <TableCell align="left">{row.code}</TableCell>
-                <TableCell align="left">{row.title}</TableCell>
-                <TableCell align="center">{row.stock}</TableCell>
-                <TableCell align="center">{row.buying_price}</TableCell>
-                <TableCell align="center">{row.price}</TableCell>
-                <TableCell align="center">{row.unit}</TableCell>
+                <TableCell align="left">{row.name}</TableCell>
                 <TableCell align="center">
                   <IconButton
                     color="primary"
                     aria-label="edit"
                     onClick={(event) => {
-                      setProductToEdit(row);
+                      setDepartmentToEdit(row);
                       setOpen(true);
                     }}
                   >
@@ -129,7 +115,7 @@ export default function ProductList(props) {
                     }}
                     aria-label="add to shopping cart"
                     onClick={(event) => {
-                      handleDelete(row);
+                      // handleDelete(row);
                     }}
                   >
                     <DeleteIcon />
@@ -140,12 +126,11 @@ export default function ProductList(props) {
           </TableBody>
         </Table>
       </TableContainer>
-
-      <EditProduct
-        product={productToEdit}
+      <EditDepartment
+        department={departmentToEdit}
         open={open}
         setOpen={setOpen}
-        setProducts={props.setProducts}
+        setDepartments={props.setDepartments}
       />
     </Paper>
   );

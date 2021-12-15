@@ -1,21 +1,24 @@
 /* eslint-disable */
-import axios from "axios";
-import React from "react";
-import { useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
+import { Container, Grid, Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { getUser } from "../User";
-import { Container } from "@material-ui/core";
-import Cookies from "js-cookie";
-import CategoryCard from "./CategoryCard";
-
-import Grid from "@mui/material/Grid";
-
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
 
-var pjson = require("../../package.json");
-const serverAddress = pjson.proxy;
+import { getUser } from "../User";
+import Cookies from "js-cookie";
+
+import axios from "axios";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
+
+import CategoryCard from "../components/CategoryCard";
 
 const theme = createTheme({
   typography: {
@@ -37,11 +40,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-/* eslint-disable */
-export default function FoodMenu(props) {
+export default function DepartmentCategories(props) {
   const classes = useStyles();
 
+  let { id } = useParams();
   const [categories, setCategories] = useState([]);
+  const [department, setDepartment] = useState({});
 
   var csrftoken = Cookies.get("csrftoken");
   let config = {
@@ -54,10 +58,25 @@ export default function FoodMenu(props) {
 
   const user = getUser();
 
+  const getDepartment = async () => {
+    try {
+      const res = await axios.get(
+        process.env.REACT_APP_BACK_END_URL + "/api/departments/" + id,
+        config
+      );
+
+      if (res) {
+        setDepartment(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getCategories = async () => {
     try {
       const res = await axios.get(
-        process.env.REACT_APP_BACK_END_URL + "/api/categories/",
+        process.env.REACT_APP_BACK_END_URL + "/api/categories/department/" + id,
         config
       );
 
@@ -70,16 +89,12 @@ export default function FoodMenu(props) {
   };
 
   useEffect(() => {
+    getDepartment();
     getCategories();
   }, []);
   return (
     <div className={classes.root}>
-      <img
-        src="https://scontent.fdac22-1.fna.fbcdn.net/v/t1.6435-9/56517146_921280151596718_4611876032075530240_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=e3f864&_nc_ohc=O7IrPml-0s0AX9Nu82Q&_nc_ht=scontent.fdac22-1.fna&oh=d1290368ee57a34300bd0b813d06a2c1&oe=61B229D0"
-        width="100%"
-        loading="lazy"
-      />
-      <Container component="main" maxWidth="md">
+      <Container component="main" maxWidth="lg">
         <div className={classes.paper}>
           <ThemeProvider theme={theme}>
             <Typography
@@ -91,16 +106,23 @@ export default function FoodMenu(props) {
                 color: "#000000",
               }}
             >
-              MENU
+              {department.name}
             </Typography>
           </ThemeProvider>
-          <Grid container spacing={1} alignItems="center">
+          <Grid
+            container
+            spacing={3}
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+          >
             {categories.map((row) => (
-              <Grid item key={row.category_id} xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                 <CategoryCard
-                  key={row.category_id}
                   id={row.category_id}
                   category={row}
+                  cart={props.cart}
+                  setCart={props.setCart}
                 />
               </Grid>
             ))}

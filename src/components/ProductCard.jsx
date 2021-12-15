@@ -31,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: theme.palette.text.primary,
   },
+  title: {
+    display: "flex",
+    justifyContent: "center",
+  },
 }));
 
 export default function ProductCard(props) {
@@ -55,17 +59,24 @@ export default function ProductCard(props) {
         alt={props.product.title}
       />
       <CardContent>
-        <ThemeProvider theme={theme}>
-          <Typography
-            variant="h4"
-            component="div"
-            sx={{
-              color: "#000000",
-            }}
-          >
-            {props.product.title}
-          </Typography>
-        </ThemeProvider>
+        <div className={classes.title}>
+          <ThemeProvider theme={theme}>
+            <Typography
+              variant="h4"
+              component="div"
+              sx={{
+                color: "#000000",
+                fontSize: 30,
+                minHeight: 70,
+                width: "fit-content",
+                textAlign: "center",
+              }}
+            >
+              {props.product.title}
+            </Typography>
+          </ThemeProvider>
+        </div>
+
         <Typography
           variant="caption"
           display="block"
