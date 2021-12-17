@@ -8,17 +8,12 @@ import TextField from "@material-ui/core/TextField";
 import Alert from "@mui/material/Alert";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import CloseIcon from "@mui/icons-material/Close";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
 import IconButton from "@mui/material/IconButton";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@material-ui/core/Typography";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Collapse from "@mui/material/Collapse";
-import MaterialUiPhoneNumber from "material-ui-phone-number";
-import MuiPhoneNumber from "material-ui-phone-number";
-import CircularProgress from "@mui/material/CircularProgress";
+
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -48,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CartItem(props) {
   const classes = useStyles();
 
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(props.quantity);
   const [product, setProduct] = useState({});
 
   var csrftoken = Cookies.get("csrftoken");
@@ -60,6 +55,8 @@ export default function CartItem(props) {
     },
   };
 
+  const handleDelete = () => {};
+
   const handleQuantityChange = (event) => {
     setQuantity(event.target.value);
     var temp_cart = { ...props.cart };
@@ -68,10 +65,13 @@ export default function CartItem(props) {
       count = 0;
     }
     temp_cart[props.id] = count;
-    console.log("====================================");
-    console.log(temp_cart);
-    console.log("====================================");
     props.setCart(temp_cart);
+    localStorage.setItem("cart", JSON.stringify(temp_cart));
+    updatePriceList(count);
+  };
+
+  const updatePriceList = (count) => {
+    props.updatePriceList(product.product_id, count, product.price);
   };
 
   const getProduct = async () => {
@@ -83,6 +83,7 @@ export default function CartItem(props) {
 
       if (res) {
         setProduct(res.data);
+        props.updatePriceList(res.data.product_id, quantity, res.data.price);
       }
     } catch (error) {
       console.log(error);
@@ -94,30 +95,37 @@ export default function CartItem(props) {
   }, []);
 
   return (
-    <div className={classes.paper}>
-      <Grid container spacing={2} alignItems="center" alignContent="center">
-        <Grid item xs={2}>
-          <img src={product.image_url} width="100%" loading="lazy" />
-        </Grid>
-        <Grid item xs={2}>
-          {product.title}
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            autoFocus
-            type="number"
-            margin="dense"
-            id="quantity"
-            label="Quantity"
-            variant="outlined"
-            value={quantity}
-            onChange={handleQuantityChange}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          Price = {product.price * quantity}
-        </Grid>
-      </Grid>
-    </div>
+    <TableRow key={product.product_id}>
+      <TableCell align="center">
+        <img src={product.image_url} height="50" loading="lazy" />
+      </TableCell>
+      <TableCell align="left">{product.title}</TableCell>
+      <TableCell align="left">
+        <TextField
+          autoFocus
+          type="number"
+          margin="dense"
+          id="quantity"
+          label="Quantity"
+          variant="outlined"
+          value={quantity}
+          onChange={handleQuantityChange}
+        />
+      </TableCell>
+      <TableCell align="left">{product.price * quantity} /-</TableCell>
+      <TableCell align="center">
+        <IconButton
+          style={{
+            color: "#ff0000",
+          }}
+          aria-label="add to shopping cart"
+          onClick={(event) => {
+            handleDelete();
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </TableCell>
+    </TableRow>
   );
 }

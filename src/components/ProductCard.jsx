@@ -48,6 +48,8 @@ export default function ProductCard(props) {
     temp_cart[product_id] = 1;
 
     props.setCart(temp_cart);
+
+    localStorage.setItem("cart", JSON.stringify(temp_cart));
   };
 
   return (
@@ -85,7 +87,7 @@ export default function ProductCard(props) {
             minHeight: 100,
           }}
         >
-          {props.product.description}
+          <pre>{props.product.description}</pre>
         </Typography>
         {props.product.stock < 100 ? (
           <Typography

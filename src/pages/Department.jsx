@@ -62,6 +62,7 @@ export default function Department() {
         setDepartments(res.data);
       }
     } catch (error) {
+      // window.alert(process.env.REACT_APP_BACK_END_URL);
       console.log(error);
     }
   };
@@ -93,7 +94,7 @@ export default function Department() {
           </ThemeProvider>
           <Grid container spacing={3} alignItems="center">
             {departments.map((row) => (
-              <Grid item key={row.category_id} xs={12} md={4}>
+              <Grid item key={row.department_id} xs={12} md={4}>
                 <DepartmentCard
                   key={row.department_id}
                   id={row.department_id}

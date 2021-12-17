@@ -53,7 +53,15 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
   const classes = useStyles();
 
-  const [cart, setCart] = useState({});
+  var saved_cart = localStorage.getItem("cart");
+
+  if (!saved_cart) {
+    saved_cart = {};
+  } else {
+    saved_cart = JSON.parse(saved_cart);
+  }
+
+  const [cart, setCart] = useState(saved_cart);
   const history = useHistory();
   let user = getUser();
 

@@ -87,6 +87,8 @@ export default function OrderList(props) {
               <TableCell align="center">Tracking Number</TableCell>
               <TableCell align="left">Name</TableCell>
               <TableCell align="left">Contact No</TableCell>
+              <TableCell align="left">Bkash No</TableCell>
+              <TableCell align="left">Transaction ID</TableCell>
               <TableCell align="left">Shipping Address</TableCell>
               <TableCell align="center">Action</TableCell>
             </TableRow>
@@ -99,6 +101,8 @@ export default function OrderList(props) {
                   {row.first_name + " " + row.last_name}
                 </TableCell>
                 <TableCell align="left">{row.contact_no}</TableCell>
+                <TableCell align="left">{row.payment_account_no}</TableCell>
+                <TableCell align="left">{row.transaction_id}</TableCell>
                 <TableCell align="left">{row.shipping_address}</TableCell>
                 <TableCell align="center">
                   <IconButton

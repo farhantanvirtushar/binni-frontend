@@ -93,6 +93,7 @@ export default function CategoryList(props) {
           <TableHead>
             <TableRow>
               <TableCell align="left">Cover Image</TableCell>
+              <TableCell align="left">ID</TableCell>
               <TableCell align="left">Category Name</TableCell>
               <TableCell align="left">Department</TableCell>
               <TableCell align="center">Action</TableCell>
@@ -108,6 +109,7 @@ export default function CategoryList(props) {
                     loading="lazy"
                   />
                 </TableCell>
+                <TableCell align="left">{row.category_id}</TableCell>
                 <TableCell align="left">{row.name}</TableCell>
                 <TableCell align="left">
                   {getDeptName(row.department_id)}

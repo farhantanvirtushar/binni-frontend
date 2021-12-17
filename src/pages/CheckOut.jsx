@@ -15,13 +15,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Collapse from "@mui/material/Collapse";
-import MaterialUiPhoneNumber from "material-ui-phone-number";
 import MuiPhoneNumber from "material-ui-phone-number";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
+import Cart from "../components/Cart";
 import CartItem from "../components/CartItem";
 
 import DialogTitle from "@mui/material/DialogTitle";
@@ -46,6 +44,26 @@ const useStyles = makeStyles((theme) => ({
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
+  payment: {
+    marginTop: 15,
+    padding: 15,
+    backgroundColor: "#f37553",
+    color: "#ffffff",
+    borderRadius: 15,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  paymentInfo: {
+    width: "100%",
+    margin: 5,
+    padding: 15,
+    backgroundColor: "#ffffff",
+    borderRadius: 15,
+  },
+  inputColor: {
+    color: "#ffffff",
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
@@ -62,10 +80,21 @@ export default function CheckOut(props) {
   const [submitted, setSubmitted] = useState(false);
 
   const [address, setAddress] = useState("");
+  const [paymentAccountNo, setPaymentAccountNo] = useState("");
+  const [transID, setTransID] = useState("");
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const getTotal = (data) => {
+    var total = 0;
+
+    for (var i = 0; i < data.length; i++) {
+      total += data[i].quantity * data[i].price;
+    }
+    return total;
   };
 
   const handleOrderSubmit = async (event) => {
@@ -85,6 +114,8 @@ export default function CheckOut(props) {
       last_name: lastname,
       contact_no: phone,
       shipping_address: address,
+      payment_account_no: paymentAccountNo,
+      transaction_id: transID,
       cart: props.cart,
     };
 
@@ -111,13 +142,9 @@ export default function CheckOut(props) {
         <Typography component="h1" variant="h5">
           Shopping Cart
         </Typography>
-        <Grid container spacing={2} style={{ marginBottom: 10 }}>
-          {Object.keys(props.cart).map((key, index) => (
-            <Grid item xs={12}>
-              <CartItem id={key} cart={props.cart} setCart={props.setCart} />
-            </Grid>
-          ))}
-        </Grid>
+        <Cart cart={props.cart} setCart={props.setCart} />
+
+        <br />
         <Typography component="h1" variant="h5">
           Shipping Address
         </Typography>
@@ -152,6 +179,7 @@ export default function CheckOut(props) {
             <Grid item xs={12} sm={6}>
               <MuiPhoneNumber
                 variant="outlined"
+                label="Contact No"
                 fullWidth
                 defaultCountry={"bd"}
                 onChange={(value) => setPhone(value)}
@@ -171,6 +199,40 @@ export default function CheckOut(props) {
               />
             </Grid>
           </Grid>
+          <div className={classes.payment}>
+            <Typography component="h1" variant="h4" sx={{ color: "xff0000" }}>
+              Pay 25% in advance to confirm the order
+            </Typography>
+            {/* <Typography component="h1" variant="h4" sx={{ color: "xff0000" }}>
+              Pay 25% in advance to confirm the order
+            </Typography> */}
+
+            <div className={classes.paymentInfo}>
+              <Grid container spacing={4}>
+                <Grid item xs={12} sm={6}>
+                  <MuiPhoneNumber
+                    variant="outlined"
+                    label="Bkash Mobile Number"
+                    fullWidth
+                    defaultCountry={"bd"}
+                    onChange={(value) => setPaymentAccountNo(value)}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    color="success"
+                    name="transID"
+                    label="Transaction ID"
+                    id="transID"
+                    onChange={(event) => setTransID(event.target.value)}
+                  />
+                </Grid>
+              </Grid>
+            </div>
+          </div>
           <div className={classes.paper}>
             {!submitted ? (
               <Button
