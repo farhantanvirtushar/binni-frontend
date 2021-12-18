@@ -41,12 +41,20 @@ const useStyles = makeStyles((theme) => ({
 export default function Cart(props) {
   const classes = useStyles();
 
-  var initPriceList = {};
-  for (var key in props.cart) {
-    initPriceList[key] = 0;
+  var saved_price_list = localStorage.getItem("priceList");
+
+  if (!saved_price_list) {
+    saved_price_list = {};
+  } else {
+    saved_price_list = JSON.parse(saved_price_list);
   }
-  const [total, setTotal] = useState(0);
-  const [priceList, setPriceList] = useState(initPriceList);
+
+  var initial_price_list = {};
+  for (var key in props.cart) {
+    initial_price_list[key] = saved_price_list[key] * props.cart[key];
+  }
+
+  const [priceList, setPriceList] = useState(initial_price_list);
 
   var csrftoken = Cookies.get("csrftoken");
   let config = {
@@ -74,7 +82,7 @@ export default function Cart(props) {
       total_price += priceList[key];
     }
 
-    setTotal(total_price);
+    props.setTotal(total_price);
   };
   const handleDelete = async (row) => {
     try {
@@ -128,11 +136,6 @@ export default function Cart(props) {
           </Table>
         </TableContainer>
       </Paper>
-
-      <br />
-      <Typography component="h1" variant="h5">
-        Total : {total} /-
-      </Typography>
     </div>
   );
 }

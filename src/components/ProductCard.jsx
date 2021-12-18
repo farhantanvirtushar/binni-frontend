@@ -50,6 +50,20 @@ export default function ProductCard(props) {
     props.setCart(temp_cart);
 
     localStorage.setItem("cart", JSON.stringify(temp_cart));
+    updatePriceList();
+  };
+
+  const updatePriceList = () => {
+    var saved_price_list = localStorage.getItem("priceList");
+
+    if (!saved_price_list) {
+      saved_price_list = {};
+    } else {
+      saved_price_list = JSON.parse(saved_price_list);
+    }
+
+    saved_price_list[props.product.product_id] = props.product.price;
+    localStorage.setItem("priceList", JSON.stringify(saved_price_list));
   };
 
   return (

@@ -83,7 +83,6 @@ export default function CartItem(props) {
 
       if (res) {
         setProduct(res.data);
-        props.updatePriceList(res.data.product_id, quantity, res.data.price);
       }
     } catch (error) {
       console.log(error);

@@ -82,19 +82,12 @@ export default function CheckOut(props) {
   const [address, setAddress] = useState("");
   const [paymentAccountNo, setPaymentAccountNo] = useState("");
   const [transID, setTransID] = useState("");
+
+  const [total, setTotal] = useState(0);
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const getTotal = (data) => {
-    var total = 0;
-
-    for (var i = 0; i < data.length; i++) {
-      total += data[i].quantity * data[i].price;
-    }
-    return total;
   };
 
   const handleOrderSubmit = async (event) => {
@@ -116,6 +109,7 @@ export default function CheckOut(props) {
       shipping_address: address,
       payment_account_no: paymentAccountNo,
       transaction_id: transID,
+      paid: total * 0.25,
       cart: props.cart,
     };
 
@@ -129,6 +123,10 @@ export default function CheckOut(props) {
         let data = res.data;
         setOpen(true);
         setSubmitted(false);
+        localStorage.removeItem("cart");
+        localStorage.removeItem("priceList");
+        props.setCart({});
+        setTotal(0);
       }
     } catch (error) {
       setSubmitted(false);
@@ -142,9 +140,18 @@ export default function CheckOut(props) {
         <Typography component="h1" variant="h5">
           Shopping Cart
         </Typography>
-        <Cart cart={props.cart} setCart={props.setCart} />
-
+        <Cart
+          cart={props.cart}
+          setCart={props.setCart}
+          total={total}
+          setTotal={setTotal}
+        />
         <br />
+        <Typography component="h1" variant="h5">
+          Total : {total} /-
+        </Typography>
+        <br />
+
         <Typography component="h1" variant="h5">
           Shipping Address
         </Typography>
@@ -200,12 +207,15 @@ export default function CheckOut(props) {
             </Grid>
           </Grid>
           <div className={classes.payment}>
-            <Typography component="h1" variant="h4" sx={{ color: "xff0000" }}>
+            <Typography component="h1" variant="h4">
               Pay 25% in advance to confirm the order
             </Typography>
-            {/* <Typography component="h1" variant="h4" sx={{ color: "xff0000" }}>
-              Pay 25% in advance to confirm the order
-            </Typography> */}
+            <Typography variant="body2">
+              <ul>
+                <li>Pay BDT {total * 0.25} /- in bkash</li>
+                <li>Enter bkash mobile no and transaction ID below</li>
+              </ul>
+            </Typography>
 
             <div className={classes.paymentInfo}>
               <Grid container spacing={4}>
