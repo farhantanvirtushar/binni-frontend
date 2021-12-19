@@ -110,7 +110,7 @@ export default function AllProducts(props) {
           </ThemeProvider>
           <Grid
             container
-            spacing={1}
+            spacing={3}
             direction="row"
             alignItems="center"
             justifyContent="center"

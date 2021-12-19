@@ -122,22 +122,22 @@ export default function OrderDetails(props) {
         <DialogContent>
           <div className={classes.form}>
             <div className={classes.row}>
-              <Typography variant="h7" component="div">
+              <Typography variant="body1">
                 Tracing Number : {props.order.order_id}
               </Typography>
             </div>
             <div className={classes.row}>
-              <Typography variant="h7" component="div">
+              <Typography variant="body1">
                 Name : {props.order.first_name + " " + props.order.last_name}
               </Typography>
             </div>
             <div className={classes.row}>
-              <Typography variant="h7" component="div">
+              <Typography variant="body1">
                 Contact No : {props.order.contact_no}
               </Typography>
             </div>
             <div className={classes.row}>
-              <Typography variant="h7" component="div">
+              <Typography variant="body1">
                 Shipping Address : {props.order.shipping_address}
               </Typography>
             </div>
@@ -159,17 +159,15 @@ export default function OrderDetails(props) {
                     <img src={row.image_url} height="50" loading="lazy" />
                   </Grid>
                   <Grid item xs={3}>
-                    <Typography variant="h7" component="div">
-                      {row.title}
-                    </Typography>
+                    <Typography variant="body1">{row.title}</Typography>
                   </Grid>
                   <Grid item xs={3}>
-                    <Typography variant="h7" component="div">
+                    <Typography variant="body1">
                       {row.quantity + " " + row.unit}
                     </Typography>
                   </Grid>
                   <Grid item xs={3}>
-                    <Typography variant="h7" component="div">
+                    <Typography variant="body1">
                       {row.quantity * row.price} BDT
                     </Typography>
                   </Grid>
@@ -177,8 +175,29 @@ export default function OrderDetails(props) {
               </div>
             ))}
             <div className={classes.row}>
+              <Typography variant="h6" component="div">
+                Total : {total} BDT
+              </Typography>
+            </div>
+
+            <div className={classes.row}>
               <Typography variant="h4" component="div">
-                Total = {total}
+                Payment Details
+              </Typography>
+            </div>
+            <div className={classes.row}>
+              <Typography variant="body1">
+                Paid : {props.order.paid} BDT
+              </Typography>
+            </div>
+            <div className={classes.row}>
+              <Typography variant="body1">
+                Bkash No : {props.order.payment_account_no}
+              </Typography>
+            </div>
+            <div className={classes.row}>
+              <Typography variant="body1">
+                Transaction ID : {props.order.transaction_id}
               </Typography>
             </div>
           </div>

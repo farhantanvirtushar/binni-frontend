@@ -33,6 +33,7 @@ import Orders from "./Orders";
 import Topbar from "../../components/Admin/Topbar";
 import Sidebar from "../../components/Admin/Sidebar";
 import Departemnts from "./Departments";
+import Caterings from "./Caterings";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -198,6 +199,9 @@ export default function Admin() {
               </Route>
               <Route exact path="/admin/orders">
                 <Orders />
+              </Route>
+              <Route exact path="/admin/caterings">
+                <Caterings />
               </Route>
             </Switch>
           </Box>

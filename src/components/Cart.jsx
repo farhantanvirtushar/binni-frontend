@@ -51,6 +51,7 @@ export default function Cart(props) {
 
   var initial_price_list = {};
   for (var key in props.cart) {
+    // initital total price = saved price per product * quantity of product
     initial_price_list[key] = saved_price_list[key] * props.cart[key];
   }
 
@@ -112,6 +113,7 @@ export default function Cart(props) {
       <Paper>
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
+            s
             <TableHead>
               <TableRow>
                 <TableCell align="center">Image</TableCell>

@@ -103,7 +103,7 @@ export default function ProductCard(props) {
         >
           <pre>{props.product.description}</pre>
         </Typography>
-        {props.product.stock < 100 ? (
+        {/* {props.product.stock < 100 ? (
           <Typography
             variant="h6"
             component="div"
@@ -115,7 +115,7 @@ export default function ProductCard(props) {
           </Typography>
         ) : (
           <div></div>
-        )}
+        )} */}
         <Typography
           variant="h6"
           component="div"

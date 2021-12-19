@@ -15,6 +15,7 @@ import CategoryIcon from "@mui/icons-material/Category";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import AppsIcon from "@mui/icons-material/Apps";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
@@ -50,13 +51,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const items = ["Dashboard", "Departments", "Categories", "Products", "Orders"];
+const items = [
+  "Dashboard",
+  "Departments",
+  "Categories",
+  "Products",
+  "Orders",
+  "Caterings",
+];
 const itemUrl = [
   "/dashboard",
   "/departments",
   "/categories",
   "/products",
   "/orders",
+  "/caterings",
 ];
 const itemIcons = [
   <QueryStatsIcon />,
@@ -64,6 +73,7 @@ const itemIcons = [
   <CategoryIcon />,
   <FastfoodIcon />,
   <LocalMallIcon />,
+  <LocalShippingIcon />,
 ];
 
 export default function Sidebar(props) {
