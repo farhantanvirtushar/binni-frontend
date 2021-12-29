@@ -23,6 +23,7 @@ import Cookies from "js-cookie";
 import { getAdmin } from "../../../User";
 
 import { Typography } from "@mui/material";
+import OrderedItems from "./OrderedItems";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -147,33 +148,7 @@ export default function OrderDetails(props) {
                 Ordered Items
               </Typography>
             </div>
-            {orderedItems.map((row) => (
-              <div className={classes.row}>
-                <Grid
-                  container
-                  spacing={2}
-                  alignItems="center"
-                  alignContent="center"
-                >
-                  <Grid item xs={3}>
-                    <img src={row.image_url} height="50" loading="lazy" />
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Typography variant="body1">{row.title}</Typography>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Typography variant="body1">
-                      {row.quantity + " " + row.unit}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Typography variant="body1">
-                      {row.quantity * row.price} BDT
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </div>
-            ))}
+            <OrderedItems orderedItems={orderedItems} />
             <div className={classes.row}>
               <Typography variant="h6" component="div">
                 Total : {total} BDT

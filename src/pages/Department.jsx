@@ -72,11 +72,6 @@ export default function Department() {
   }, []);
   return (
     <div className={classes.root}>
-      <img
-        src="https://scontent.fdac22-1.fna.fbcdn.net/v/t1.6435-9/56517146_921280151596718_4611876032075530240_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=e3f864&_nc_ohc=O7IrPml-0s0AX9Nu82Q&_nc_ht=scontent.fdac22-1.fna&oh=d1290368ee57a34300bd0b813d06a2c1&oe=61B229D0"
-        width="100%"
-        loading="lazy"
-      />
       <Container component="main" maxWidth="lg">
         <div className={classes.paper}>
           <ThemeProvider theme={theme}>

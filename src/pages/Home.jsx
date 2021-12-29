@@ -18,6 +18,7 @@ import Department from "./Department";
 import AllProducts from "../components/AllProducts";
 import CheckOut from "./CheckOut";
 import DepartmentCategories from "./DepartmentCategories";
+import Caterings from "./Caterings";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
@@ -100,6 +101,9 @@ export default function Home() {
               </Route>
               <Route exact path="/checkout">
                 <CheckOut cart={cart} setCart={setCart} />
+              </Route>
+              <Route exact path="/caterings">
+                <Caterings />
               </Route>
             </Switch>
           </Box>

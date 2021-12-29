@@ -11,6 +11,8 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Badge from "@mui/material/Badge";
 
+import { styled } from "@mui/material/styles";
+
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -18,12 +20,12 @@ const font = "'Quicksand', sans-serif";
 
 const theme = createTheme({
   typography: {
-    fontFamily: ["Irish Grover", "cursive"].join(","),
+    fontFamily: ["Kalam", "cursive"].join(","),
   },
 });
 
 const useStyles = makeStyles((theme) => ({
-  row: {
+  appBar: {
     marginBottom: theme.spacing(5),
   },
   topbar: {
@@ -31,14 +33,28 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingTop: theme.spacing(3),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    background: "#f37553",
+  },
+  link: {
+    textDecoration: "none",
+    color: theme.palette.text.primary,
+    marginRight: 8,
+  },
+  title: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     background: "#ffffff",
   },
-  topbarItem: {
+  topbarItemGroup: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    color: "#ffffff",
     marginRight: 20,
   },
   searchInput: {
@@ -46,33 +62,67 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const ColorIconButton = styled(IconButton)(({ theme }) => ({
+  color: "#0000ff",
+  backgroundColor: "#ffffff",
+  "&:hover": {
+    backgroundColor: "#e5f0f1",
+  },
+}));
+
 export default function Topbar(props) {
   const classes = useStyles();
 
-  const { open, setOpen } = props;
+  const menuRoutes = [
+    { name: "Home", link: "" },
+    { name: "Caterings", link: "caterings" },
+    { name: "Contact", link: "contact" },
+    { name: "About Us", link: "about" },
+  ];
 
   return (
-    <div>
+    <div className={classes.appBar}>
       <AppBar
         position="fixed"
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        elevation={0}
+        elevation={1}
       >
+        <Toolbar className={classes.title}>
+          <ThemeProvider theme={theme}>
+            <Typography
+              variant="h4"
+              component="div"
+              sx={{
+                color: "#bd2626",
+                fontSize: 30,
+                textAlign: "center",
+              }}
+            >
+              BINNI RESTURANT & CATERING SERVICE
+            </Typography>
+          </ThemeProvider>
+        </Toolbar>
+
         <Toolbar className={classes.topbar}>
-          <div className={classes.topbarItem}>
-            <ThemeProvider theme={theme}>
-              <Typography
-                variant="h4"
-                component="div"
-                sx={{
-                  flexGrow: 1,
-                  color: "#bd2626",
-                  fontSize: 30,
-                }}
-              >
-                BINNI RESTURANT & CATERING SERVICE
-              </Typography>
-            </ThemeProvider>
+          <div className={classes.topbarItemGroup}>
+            {menuRoutes.map((item) => (
+              <Link to={"/" + item.link} className={classes.link}>
+                <Button variant="text" style={{ textTransform: "capitalize" }}>
+                  <ThemeProvider theme={theme}>
+                    <Typography
+                      variant="h4"
+                      component="div"
+                      sx={{
+                        color: "#ffffff",
+                        fontSize: 30,
+                      }}
+                    >
+                      {item.name}
+                    </Typography>
+                  </ThemeProvider>
+                </Button>
+              </Link>
+            ))}
           </div>
 
           <Badge
@@ -81,9 +131,9 @@ export default function Topbar(props) {
             overlap="circular"
           >
             <Link to={"/checkout"}>
-              <IconButton color="primary" aria-label="add to shopping cart">
+              <ColorIconButton>
                 <AddShoppingCartIcon sx={{ fontSize: 40 }} />
-              </IconButton>
+              </ColorIconButton>
             </Link>
           </Badge>
         </Toolbar>

@@ -65,7 +65,7 @@ export default function EditDepartment(props) {
     },
   };
 
-  const [departmentName, setdepartmentName] = useState("");
+  const [departmentName, setDepartmentName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleClose = () => {
@@ -92,7 +92,7 @@ export default function EditDepartment(props) {
       );
 
       if (res) {
-        props.setdepartments(res.data);
+        props.setDepartments(res.data);
       }
     } catch (error) {
       console.log(error);
@@ -100,7 +100,7 @@ export default function EditDepartment(props) {
   };
 
   useEffect(() => {
-    setdepartmentName(props.department.name);
+    setDepartmentName(props.department.name);
     setSelectedFile(null);
   }, [props.open]);
 
@@ -135,7 +135,7 @@ export default function EditDepartment(props) {
                 variant="outlined"
                 value={departmentName}
                 onChange={(event) => {
-                  setdepartmentName(event.target.value);
+                  setDepartmentName(event.target.value);
                 }}
               />
             </div>
