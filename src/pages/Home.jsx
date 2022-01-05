@@ -19,6 +19,8 @@ import AllProducts from "../components/AllProducts";
 import CheckOut from "./CheckOut";
 import DepartmentCategories from "./DepartmentCategories";
 import Caterings from "./Caterings";
+import About from "./About";
+import Footer from "../components/Footer";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
@@ -105,9 +107,14 @@ export default function Home() {
               <Route exact path="/caterings">
                 <Caterings />
               </Route>
+              <Route exact path="/about">
+                <About />
+              </Route>
             </Switch>
           </Box>
         </div>
+
+        <Footer />
       </Router>
     </div>
   );

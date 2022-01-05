@@ -62,15 +62,15 @@ export default function DepartmentList(props) {
 
   const handleDelete = async (row) => {
     try {
-      const res = await axios.post(
+      const res = await axios.delete(
         process.env.REACT_APP_BACK_END_URL +
           "/api/departments/" +
-          row.department_id +
-          "/delete",
+          row.department_id,
         config
       );
 
       if (res) {
+        props.setDepartments(res.data);
       }
     } catch (error) {
       console.log(error);
@@ -115,7 +115,7 @@ export default function DepartmentList(props) {
                     }}
                     aria-label="add to shopping cart"
                     onClick={(event) => {
-                      // handleDelete(row);
+                      handleDelete(row);
                     }}
                   >
                     <DeleteIcon />
