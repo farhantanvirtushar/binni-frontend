@@ -97,6 +97,7 @@ export default function CreateCatering(props) {
       );
 
       if (res) {
+        res.data.sort(props.compare);
         props.setCaterings(res.data);
       }
     } catch (error) {

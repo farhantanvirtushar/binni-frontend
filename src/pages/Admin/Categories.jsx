@@ -72,6 +72,15 @@ export default function Categories() {
     },
   };
 
+  function compare(a, b) {
+    if (a.department_id < b.department_id) {
+      return -1;
+    }
+    if (a.department_id > b.department_id) {
+      return 1;
+    }
+    return a.name.localeCompare(b.name);
+  }
   const getCategories = async () => {
     try {
       const res = await axios.get(
@@ -80,6 +89,7 @@ export default function Categories() {
       );
 
       if (res) {
+        res.data.sort(compare);
         setCategories(res.data);
       }
     } catch (error) {
@@ -148,6 +158,7 @@ export default function Categories() {
       <CreateCategory
         departments={departments}
         setCategories={setCategories}
+        compare={compare}
         setOpen={setOpen}
         open={open}
       />
@@ -155,6 +166,7 @@ export default function Categories() {
         departments={departments}
         categories={categories}
         setCategories={setCategories}
+        compare={compare}
       />
     </div>
   );

@@ -96,6 +96,7 @@ export default function CreateCategory(props) {
       );
 
       if (res) {
+        res.data.sort(props.compare);
         props.setCategories(res.data);
       }
     } catch (error) {

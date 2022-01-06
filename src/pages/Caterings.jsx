@@ -75,6 +75,10 @@ export default function Caterings() {
 
   const user = getUser();
 
+  function compare(a, b) {
+    return a.name.localeCompare(b.name);
+  }
+
   const getCaterings = async () => {
     try {
       const res = await axios.get(
@@ -83,6 +87,10 @@ export default function Caterings() {
       );
 
       if (res) {
+        res.data.sort(compare);
+        console.log("====================================");
+        console.log(res.data);
+        console.log("====================================");
         setCaterings(res.data);
         setMaxSteps(res.data.length);
       }
@@ -96,7 +104,7 @@ export default function Caterings() {
   }, []);
   return (
     <div className={classes.root}>
-      <Container component="main" maxWidth="lg">
+      <Container component="main" maxWidth="sm">
         <div className={classes.paper}>
           <ThemeProvider theme={theme}>
             <Typography

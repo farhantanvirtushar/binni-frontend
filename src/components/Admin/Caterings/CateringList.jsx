@@ -70,6 +70,7 @@ export default function CateringList(props) {
       );
 
       if (res) {
+        res.data.sort(props.compare);
         props.setCaterings(res.data);
       }
     } catch (error) {
@@ -83,7 +84,6 @@ export default function CateringList(props) {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="left">ID</TableCell>
               <TableCell align="left">Catering Name</TableCell>
               <TableCell align="left">Catering Menu</TableCell>
               <TableCell align="center">Action</TableCell>
@@ -92,7 +92,6 @@ export default function CateringList(props) {
           <TableBody>
             {caterings.map((row) => (
               <TableRow key={row.category_id}>
-                <TableCell align="left">{row.catering_id}</TableCell>
                 <TableCell align="left">{row.name}</TableCell>
                 <TableCell align="left">{row.catering_menu}</TableCell>
                 <TableCell align="center">
@@ -128,6 +127,7 @@ export default function CateringList(props) {
         open={open}
         setOpen={setOpen}
         setCaterings={props.setCaterings}
+        compare={props.compare}
       />
     </Paper>
   );

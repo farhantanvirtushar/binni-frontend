@@ -212,7 +212,7 @@ export default function CheckOut(props) {
             </Typography>
             <Typography variant="body2">
               <ul>
-                <li>Pay BDT {total * 0.25} /- in bkash</li>
+                <li>Pay BDT {total * 0.25} /- in bkash to +8801813262561</li>
                 <li>Enter bkash mobile no and transaction ID below</li>
               </ul>
             </Typography>

@@ -101,6 +101,7 @@ export default function EditCatering(props) {
       );
 
       if (res) {
+        res.data.sort(props.compare);
         props.setCaterings(res.data);
       }
     } catch (error) {

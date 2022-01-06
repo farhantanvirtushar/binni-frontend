@@ -70,6 +70,9 @@ export default function Caterings() {
       Authorization: "Bearer " + admin.token,
     },
   };
+  function compare(a, b) {
+    return a.name.localeCompare(b.name);
+  }
 
   const getCaterings = async () => {
     try {
@@ -79,6 +82,7 @@ export default function Caterings() {
       );
 
       if (res) {
+        res.data.sort(compare);
         setCaterings(res.data);
       }
     } catch (error) {
@@ -130,10 +134,15 @@ export default function Caterings() {
       </div>
       <CreateCatering
         setCaterings={setCaterings}
+        compare={compare}
         setOpen={setOpen}
         open={open}
       />
-      <CateringList caterings={caterings} setCaterings={setCaterings} />
+      <CateringList
+        caterings={caterings}
+        setCaterings={setCaterings}
+        compare={compare}
+      />
     </div>
   );
 }

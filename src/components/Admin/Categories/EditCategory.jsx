@@ -99,6 +99,7 @@ export default function EditCategory(props) {
       );
 
       if (res) {
+        res.data.sort(props.compare);
         props.setCategories(res.data);
       }
     } catch (error) {
