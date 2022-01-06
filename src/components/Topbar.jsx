@@ -5,11 +5,18 @@ import Toolbar from "@mui/material/Toolbar";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Drawer from "@mui/material/Drawer";
+import Box from "@mui/material/Box";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Badge from "@mui/material/Badge";
+
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+
+import { useState } from "react";
 
 import { styled } from "@mui/material/styles";
 
@@ -56,9 +63,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     color: "#ffffff",
     marginRight: 20,
-  },
-  searchInput: {
-    color: "#ffffff",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
 }));
 
@@ -73,6 +80,8 @@ const ColorIconButton = styled(IconButton)(({ theme }) => ({
 export default function Topbar(props) {
   const classes = useStyles();
 
+  const [open, setOpen] = useState(false);
+
   const menuRoutes = [
     { name: "Home", link: "" },
     { name: "Caterings", link: "caterings" },
@@ -80,13 +89,12 @@ export default function Topbar(props) {
     { name: "About Us", link: "about" },
   ];
 
+  const toggleMenu = () => {
+    setOpen(!open);
+  };
   return (
     <div className={classes.appBar}>
-      <AppBar
-        position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        elevation={1}
-      >
+      <AppBar position="fixed" elevation={1}>
         <Toolbar className={classes.title}>
           <ThemeProvider theme={theme}>
             <Typography
@@ -104,6 +112,9 @@ export default function Topbar(props) {
         </Toolbar>
 
         <Toolbar className={classes.topbar}>
+          <IconButton aria-label="menu" onClick={toggleMenu} color="inherit">
+            <MenuIcon sx={{ fontSize: 40 }} />
+          </IconButton>
           <div className={classes.topbarItemGroup}>
             {menuRoutes.map((item) => (
               <Link to={"/" + item.link} className={classes.link}>
@@ -139,6 +150,24 @@ export default function Topbar(props) {
         </Toolbar>
       </AppBar>
       <Toolbar />
+      <Drawer anchor="left" open={open} onClose={toggleMenu}>
+        <Box
+          sx={{ width: 200 }}
+          role="presentation"
+          onClick={toggleMenu}
+          onKeyDown={toggleMenu}
+        >
+          <List>
+            {menuRoutes.map((item) => (
+              <Link to={"/" + item.link} className={classes.link}>
+                <ListItem button key={item.name}>
+                  <ListItemText primary={item.name} />
+                </ListItem>
+              </Link>
+            ))}
+          </List>
+        </Box>
+      </Drawer>
     </div>
   );
 }

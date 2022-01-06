@@ -90,7 +90,7 @@ export default function Home() {
         <Topbar cart={cart} setCart={setCart} />
 
         <div>
-          <Box component="main" sx={{ p: 3 }}>
+          <Box component="main" sx={{ pt: 3 }}>
             <Switch>
               <Route exact path="/">
                 <Department />

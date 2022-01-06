@@ -113,7 +113,6 @@ export default function Cart(props) {
       <Paper>
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
-            s
             <TableHead>
               <TableRow>
                 <TableCell align="center">Image</TableCell>

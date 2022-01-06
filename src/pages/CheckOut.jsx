@@ -134,7 +134,7 @@ export default function CheckOut(props) {
   };
 
   return (
-    <Container component="main" maxWidth="md">
+    <Container component="main" maxWidth="lg">
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">

@@ -14,6 +14,8 @@ import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 
+import cover from "../assets/images/cover.jpg";
+
 const theme = createTheme({
   typography: {
     fontFamily: ["Irish Grover", "cursive"].join(","),
@@ -72,6 +74,7 @@ export default function Department() {
   }, []);
   return (
     <div className={classes.root}>
+      <img src={cover} width="100%" />
       <Container component="main" maxWidth="lg">
         <div className={classes.paper}>
           <ThemeProvider theme={theme}>
