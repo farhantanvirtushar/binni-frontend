@@ -10,7 +10,7 @@ import catering from "../assets/images/catering.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(5),
   },
   grid: {
     alignItems: "center",
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 export default function About() {
   const classes = useStyles();
   return (
-    <div>
+    <div className={classes.root}>
       <div className={classes.row}>
         <Grid
           container

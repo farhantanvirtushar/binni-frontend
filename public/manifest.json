@@ -1,10 +1,10 @@
 {
     "short_name": "Binni",
-    "name": "Binni Catering",
+    "name": "Binni Resturant & Catering Service",
     "icons": [{
         "src": "./images/binni_logo.png",
         "type": "image/png",
-        "sizes": "2026x2026",
+        "sizes": "512x512 192x192",
         "purpose": "any maskable"
     }],
     "start_url": ".",

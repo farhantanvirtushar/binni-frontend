@@ -1,5 +1,12 @@
 var CACHE_NAME = "binni-pwa-cache";
-var urlsToCache = ["/", "/caterings", "/contact", "/about"];
+var urlsToCache = [
+    "/",
+    "/style.css",
+    "/images/binni_logo.png",
+    "/fonts/IrishGrover-Regular.ttf",
+    "/fonts/Kalam-Bold.ttf",
+    "fonts/Roboto-Regular.ttf",
+];
 
 // Install a service worker
 self.addEventListener("install", (event) => {
@@ -13,13 +20,14 @@ self.addEventListener("install", (event) => {
 });
 
 // Cache and return requests
-self.addEventListener("fetch", (event) => {
+self.addEventListener("fetch", function(event) {
     event.respondWith(
         caches.match(event.request).then(function(response) {
             // Cache hit - return response
             if (response) {
                 return response;
             }
+
             return fetch(event.request).then(function(response) {
                 // Check if we received a valid response
                 if (!response || response.status !== 200 || response.type !== "basic") {
@@ -44,16 +52,18 @@ self.addEventListener("fetch", (event) => {
 
 // Update a service worker
 self.addEventListener("activate", (event) => {
-    var cacheWhitelist = ["binni-pwa-cache"];
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
                 cacheNames.map((cacheName) => {
-                    if (cacheWhitelist.indexOf(cacheName) === -1) {
+                    console.log(cacheName);
+                    if (cacheName != CACHE_NAME) {
+                        console.log("cache deleted");
                         return caches.delete(cacheName);
                     }
                 })
             );
         })
     );
+    return self.clients.claim();
 });

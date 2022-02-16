@@ -2,7 +2,7 @@
 import { React, useEffect, useState } from "react";
 import { Container, Grid, Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
-
+import CircularProgress from "@mui/material/CircularProgress";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { getUser } from "../User";
@@ -10,13 +10,7 @@ import Cookies from "js-cookie";
 
 import axios from "axios";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import CategoryCard from "../components/CategoryCard";
 
@@ -116,6 +110,12 @@ export default function DepartmentCategories(props) {
             alignItems="center"
             justifyContent="center"
           >
+            {categories.length == 0 ? (
+              <CircularProgress color="error" />
+            ) : (
+              <div></div>
+            )}
+
             {categories.map((row) => (
               <Grid item xs={12} md={4}>
                 <CategoryCard

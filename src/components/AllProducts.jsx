@@ -5,19 +5,14 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { getUser } from "../User";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import Cookies from "js-cookie";
 import ProductCard from "./ProductCard";
 
 import axios from "axios";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-} from "react-router-dom";
+import { BrowserRouter as Router, useParams } from "react-router-dom";
 
 const theme = createTheme({
   typography: {
@@ -54,8 +49,6 @@ export default function AllProducts(props) {
       "Content-Type": "application/json",
     },
   };
-
-  const user = getUser();
 
   const getCategory = async () => {
     try {
@@ -115,6 +108,12 @@ export default function AllProducts(props) {
             alignItems="center"
             justifyContent="center"
           >
+            {products.length == 0 ? (
+              <CircularProgress color="error" />
+            ) : (
+              <div></div>
+            )}
+
             {products.map((row) => (
               <Grid item xs={12} md={4}>
                 <ProductCard

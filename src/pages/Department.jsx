@@ -1,12 +1,13 @@
 /* eslint-disable */
 import axios from "axios";
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { getUser } from "../User";
 import { Container } from "@material-ui/core";
 import Cookies from "js-cookie";
+import CircularProgress from "@mui/material/CircularProgress";
 import DepartmentCard from "../components/DepartmentCard";
 
 import Grid from "@mui/material/Grid";
@@ -90,9 +91,20 @@ export default function Department() {
               MENU
             </Typography>
           </ThemeProvider>
-          <Grid container spacing={3} alignItems="center">
+          <Grid
+            container
+            spacing={3}
+            alignItems="center"
+            justifyContent="center"
+          >
+            {departments.length == 0 ? (
+              <CircularProgress color="error" />
+            ) : (
+              <div></div>
+            )}
+
             {departments.map((row) => (
-              <Grid item key={row.department_id} xs={12} md={4}>
+              <Grid item key={row.department_id} xs={12} sm={6} md={4}>
                 <DepartmentCard
                   key={row.department_id}
                   id={row.department_id}

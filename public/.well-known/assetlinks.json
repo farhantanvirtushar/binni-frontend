@@ -1,0 +1,10 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+        "namespace": "android_app",
+        "package_name": "com.binni.catering",
+        "sha256_cert_fingerprints": [
+            "30:0A:40:9B:E2:E6:A1:69:09:47:D0:B5:FE:16:5F:E2:4C:2B:C5:62:9C:5C:B7:3D:D4:88:11:54:13:C4:9E:30"
+        ]
+    }
+}]

@@ -39,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   paper: {
+    paddingLeft: theme.spacing(5),
+    paddingRight: theme.spacing(5),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -104,7 +106,7 @@ export default function Caterings() {
   }, []);
   return (
     <div className={classes.root}>
-      <Container component="main" maxWidth="sm">
+      <Container maxWidth="sm">
         <div className={classes.paper}>
           <ThemeProvider theme={theme}>
             <Typography
@@ -120,10 +122,16 @@ export default function Caterings() {
             </Typography>
           </ThemeProvider>
           <SwipeableViews
-            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
             index={activeStep}
             onChangeIndex={handleStepChange}
             enableMouseEvents
+            style={{
+              maxWidth: "80vw",
+              overflow: "hidden",
+            }}
+            slideStyle={{
+              flex: "none",
+            }}
           >
             {caterings.map((catering) => (
               <div key={catering.catering_id}>
@@ -164,6 +172,7 @@ export default function Caterings() {
               </Button>
             }
           />
+
           <Typography
             variant="body1"
             sx={{
@@ -172,7 +181,7 @@ export default function Caterings() {
               color: "#000000",
             }}
           >
-            Call : +8801813262561
+            Call: +8801813262561
           </Typography>
         </div>
       </Container>
