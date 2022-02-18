@@ -79,6 +79,9 @@ export default function DepartmentCard(props) {
                 component="div"
                 sx={{
                   color: "#000000",
+                  fontSize: 30,
+                  width: "fit-content",
+                  textAlign: "center",
                 }}
               >
                 {props.department.name}

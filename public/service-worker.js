@@ -1,4 +1,4 @@
-var CACHE_NAME = "binni-pwa-cache";
+var CACHE_NAME = "binni-pwa-cache-1.5";
 var urlsToCache = [
     "/",
     "/style.css",

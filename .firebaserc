@@ -1,7 +1,5 @@
 {
   "projects": {
-    "binnicatering": "binni-catering",
     "default": "binni-catering"
-  },
-  "targets": {}
+  }
 }

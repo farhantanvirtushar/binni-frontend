@@ -74,8 +74,8 @@ export default function ProductCard(props) {
               component="div"
               sx={{
                 color: "#000000",
-                fontSize: 30,
-                minHeight: 70,
+                fontSize: 18,
+                minHeight: 40,
                 width: "fit-content",
                 textAlign: "center",
               }}
@@ -90,7 +90,7 @@ export default function ProductCard(props) {
           display="block"
           sx={{
             color: "#000000",
-            minHeight: 100,
+            minHeight: 30,
           }}
         >
           <pre>{props.product.description}</pre>
@@ -109,8 +109,7 @@ export default function ProductCard(props) {
           <div></div>
         )} */}
         <Typography
-          variant="h6"
-          component="div"
+          variant="body1"
           sx={{
             color: "#000000",
           }}

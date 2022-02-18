@@ -72,6 +72,9 @@ export default function CategoryCard(props) {
                 component="div"
                 sx={{
                   color: "#000000",
+                  fontSize: 30,
+                  width: "fit-content",
+                  textAlign: "center",
                 }}
               >
                 {props.category.name}

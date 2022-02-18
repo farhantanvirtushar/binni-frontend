@@ -104,7 +104,7 @@ export default function Department() {
             )}
 
             {departments.map((row) => (
-              <Grid item key={row.department_id} xs={12} sm={6} md={4}>
+              <Grid item key={row.department_id} xs={6} md={4}>
                 <DepartmentCard
                   key={row.department_id}
                   id={row.department_id}
